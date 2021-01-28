@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .form_div {
+      line-height: 35px;
+      height: 35px;
+    }
+  </style>
+</head>
+
+<body>
+  <form style="margin:0 auto;text-align:center;" action="/register" method="post"
+    enctype="application/x-www-form-urlencoded" onsubmit='return checkForm()'>
+
+    <div class="form_div">
+      <label for="account">输入账号</label>
+      <input id="account" name="account" value="" autocomplete="off" onblur="checkUsername()" />
+      <span id="span1" />
+    </div>
+    <div class="form_div">
+      <label for="password">输入密码</label>
+      <input id="password" name="password" value="" autocomplete="off" />
+    </div>
+    <div class="form_div">
+      <label for="confirmPassword">确认密码</label>
+      <input id="confirmPassword" name="confirmPassword" value="" autocomplete="off" />
+    </div>
+    <button type="submit">
+      注册
+    </button>
+  </form>
+</body>
+
+<script>
+  function checkForm() {
+    // 校验用户名:
+    // 获得用户名文本框的值:
+    var username = document.getElementById("account").value;
+    if (username == null || username == '') {
+      alert("用户名不能为空!");
+      return false;
+    }
+    // 校验密码:
+    // 获得密码框的值:
+    var password = document.getElementById("password").value;
+    if (password == null || password == '') {
+      alert("密码不能为空!");
+      return false;
+    }
+    // 校验确认密码:
+    var repassword = document.getElementById("confirmPassword").value;
+    if (repassword != password) {
+      alert("两次密码输入不一致!");
+      return false;
+    }
+    register()
+  }
+
+  function register() {
+    const request = new XMLHttpRequest()
+    request.open('POST', '/register')
+    request.setRequestHeader("Content-type", "application/json")
+    const password = document.getElementById("password").value
+    const username = document.getElementById("account").value
+    const send_data = { 'account': username, 'password': password }
+    request.send(JSON.stringify(send_data))
+
+    request.onload = function (e) {
+      console.log("请求成功")
+      console.log(request.status, "请求的URL的相应状态")
+      console.log(request.readyState, "请求的结果，一般都是4")
+      if (request.status === 200) {
+        alert('设置回调事件成功！')
+        window.history.back(-1); //返回上个页面
+      }
+      else {
+        alert('设置失败，请重试！')
+        window.history.back(-1)
+      }
+    }
+
+    request.onerror = function (e) {
+      alert('请求失败')
+    }
+  }
+
+  function checkUsername() {
+    // 获得文件框值:
+    var username = document.getElementById("account").value
+    // 1.创建异步交互对象
+    var xhr = createXmlHttp()
+    // 2.设置监听
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          document.getElementById("span1").innerHTML = xhr.responseText
+        }
+      }
+    }
+    // 3.打开连接
+    xhr.open("GET", `/register/check?userName=${username}`, true)
+    // 4.发送
+    xhr.send(null)
+  }
+
+  function createXmlHttp() {
+    var xmlHttp
+    try { // Firefox, Opera 8.0+, Safari
+      xmlHttp = new XMLHttpRequest()
+    } catch (e) {
+      try {// Internet Explorer
+        xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
+      } catch (e) {
+        try {
+          xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
+        } catch (e) { }
+      }
+    }
+    return xmlHttp
+  }
+</script>
+
+</html>
