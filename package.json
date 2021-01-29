@@ -17,7 +17,10 @@
     "koa-compress": "^5.0.1",
     "koa-session": "^6.1.0",
     "koa-views": "^7.0.0",
-    "koa2-cors": "^2.0.6"
+    "koa2-cors": "^2.0.6",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.5.0",
+    "ts-node": "^9.1.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
