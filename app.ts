@@ -10,7 +10,7 @@ const app = new Koa()
 
 const {
   router
-} = require('./router/index')
+} = require('./src/router/index')
 
 // session
 app.keys = ['some secret hurr']

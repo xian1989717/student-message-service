@@ -16,33 +16,32 @@ const user = ormDb.define(
     },
     password: {
       type: DataTypes.TEXT,
-      allowNumll: false
+      allowNull: false
     },
-    isClassTeacher: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      field: 'is_class_teacher',
-      default: false
-    },
+    // isClassTeacher: {
+    //   type: DataTypes.BOOLEAN,
+    //   allowNull: false,
+    //   field: 'is_class_teacher'
+    // },
     remark: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    createTime: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'create_time'
-    },
-    updateTime: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'update_time'
-    },
+    // createTime: {
+    //   type: DataTypes.DATE,
+    //   allowNull: false,
+    //   field: 'create_time'
+    // },
+    // updateTime: {
+    //   type: DataTypes.DATE,
+    //   allowNull: false,
+    //   field: 'update_time'
+    // },
     isRemoved: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       field: 'is_removed',
-      default: false
+      defaultValue: false
     }
   }
 )
