@@ -1,6 +1,6 @@
 create table User(
   id                int           not null    AUTO_INCREMENT   primary key   		comment '主键Id',
-  acount            varchar(50)   not null                                      comment '用户名',
+  account           varchar(50)   not null    UNIQUE                            comment '用户名',
   password          varchar(15)   not null                                      comment '密码',
   is_class_teacher  tinyint(1)    not null    default '0'                       comment '是否班主任',       
   remark            text          null                                          comment '备注',

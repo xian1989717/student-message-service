@@ -14,115 +14,38 @@
 </head>
 
 <body>
-  <form style="margin:0 auto;text-align:center;" action="/register" method="post"
-    enctype="application/x-www-form-urlencoded" onsubmit='return checkForm()'>
-
-    <div class="form_div">
-      <label for="account">输入账号</label>
-      <input id="account" name="account" value="" autocomplete="off" onblur="checkUsername()" />
-      <span id="span1" />
-    </div>
-    <div class="form_div">
-      <label for="password">输入密码</label>
-      <input id="password" name="password" value="" autocomplete="off" />
-    </div>
-    <div class="form_div">
-      <label for="confirmPassword">确认密码</label>
-      <input id="confirmPassword" name="confirmPassword" value="" autocomplete="off" />
-    </div>
-    <button type="submit">
-      注册
-    </button>
+  <form action="/register" method="post" id="text_form">
+    <div class="yuanGongH ipt">员工号：<input type="text" id="ygh" value="" name="account"></div>
+    <div class="szmm ipt">密码：<input type="text" value="" name="password" id="pass"></div>
+    <div class="qrmm ipt">确认密码：</i><input type="text" value="" name="qrpass" id="qrpass"></div>
   </form>
+  <div id="zhuce" class="btn_zhuce">注册</div>
 </body>
 
 <script>
-  function checkForm() {
-    // 校验用户名:
-    // 获得用户名文本框的值:
-    var username = document.getElementById("account").value;
-    if (username == null || username == '') {
-      alert("用户名不能为空!");
+  const zhuce = document.getElementById('zhuce')
+  console.dir(zhuce)
+  zhuce.addEventListener('click', function () {
+    var text_form = document.getElementById('text_form');
+    var ygh = document.getElementById("ygh").value;
+    var pass = document.getElementById("pass").value;
+    var qrpass = document.getElementById("qrpass").value;
+    if (ygh == "") {
+      alert("员工号不能为空");
       return false;
     }
-    // 校验密码:
-    // 获得密码框的值:
-    var password = document.getElementById("password").value;
-    if (password == null || password == '') {
-      alert("密码不能为空!");
+    if (pass == "") {
+      alert("密码不能为空");
       return false;
     }
-    // 校验确认密码:
-    var repassword = document.getElementById("confirmPassword").value;
-    if (repassword != password) {
-      alert("两次密码输入不一致!");
+    if (qrpass !== pass) {
+      alert("密码不同");
       return false;
+    } else {
+      text_form.submit();
+      return true;
     }
-    register()
-  }
-
-  function register() {
-    const request = new XMLHttpRequest()
-    request.open('POST', '/register')
-    request.setRequestHeader("Content-type", "application/json")
-    const password = document.getElementById("password").value
-    const username = document.getElementById("account").value
-    const send_data = { 'account': username, 'password': password }
-    request.send(JSON.stringify(send_data))
-
-    request.onload = function (e) {
-      console.log("请求成功")
-      console.log(request.status, "请求的URL的相应状态")
-      console.log(request.readyState, "请求的结果，一般都是4")
-      if (request.status === 200) {
-        alert('设置回调事件成功！')
-        window.history.back(-1); //返回上个页面
-      }
-      else {
-        alert('设置失败，请重试！')
-        window.history.back(-1)
-      }
-    }
-
-    request.onerror = function (e) {
-      alert('请求失败')
-    }
-  }
-
-  function checkUsername() {
-    // 获得文件框值:
-    var username = document.getElementById("account").value
-    // 1.创建异步交互对象
-    var xhr = createXmlHttp()
-    // 2.设置监听
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4) {
-        if (xhr.status == 200) {
-          document.getElementById("span1").innerHTML = xhr.responseText
-        }
-      }
-    }
-    // 3.打开连接
-    xhr.open("GET", `/register/check?userName=${username}`, true)
-    // 4.发送
-    xhr.send(null)
-  }
-
-  function createXmlHttp() {
-    var xmlHttp
-    try { // Firefox, Opera 8.0+, Safari
-      xmlHttp = new XMLHttpRequest()
-    } catch (e) {
-      try {// Internet Explorer
-        xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
-      } catch (e) {
-        try {
-          xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
-        } catch (e) { }
-      }
-    }
-    return xmlHttp
-  }
+  })
 </script>
 
 </html>

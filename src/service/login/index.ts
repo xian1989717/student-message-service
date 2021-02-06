@@ -19,11 +19,10 @@ async function register (ctx: any) {
   const data = Object.assign(
     ctx.request.body,
     {
-      // remark: null,
-      isRemoved: false
-      // isClassTeacher: false,
-      // createTime: new Date(),
-      // updateTime: new Date()
+      isRemoved: false,
+      isClassTeacher: false,
+      createTime: new Date(),
+      updateTime: new Date()
     }
   )
   console.log(data)
