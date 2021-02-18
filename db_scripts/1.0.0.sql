@@ -44,8 +44,19 @@ create table Student(
 create table Nation(
   id                  int                     not null  AUTO_INCREMENT    primary key       comment '主键Id',
   name                varchar(10)             not null                                      comment '民族名称'
+  create_time         datetime                not null                                      comment '创建时间',
+  update_time         datetime                not null                                      comment '更新时间',
+  is_removed          tinyint(1)              not null                    default '0'       comment '删除标记'
 )
 
 create table Subject(
+  id                  int                     not null  AUTO_INCREMENT    primary key       comment '主键Id',
+  name                varchar(10)             not null                                      comment '学科名',
+  create_time         datetime                not null                                      comment '创建时间',
+  update_time         datetime                not null                                      comment '更新时间',
+  is_removed          tinyint(1)              not null                    default '0'       comment '删除标记'
+)
 
+create table Task(
+  id                  int                     not null  AUTO_INCREMENT  primary key         comment '主键Id'
 )
