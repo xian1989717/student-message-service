@@ -1,5 +1,5 @@
 export { }
-const httpUrl: string = 'http://localhost:8080'
+const httpUrl: string = 'http://localhost:3000'
 
 module.exports = {
   httpUrl

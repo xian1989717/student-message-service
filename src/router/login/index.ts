@@ -7,13 +7,15 @@ const {
   randerHtml,
   registerHtml,
   register,
-  checkAccount
+  checkAccount,
+  login
 } = require('../../service')
 
 router
   .get('/login', randerHtml)
   .get('/register', registerHtml)
-  .post('/register', register)
   .get('/register/check', checkAccount)
+  .post('/register', register)
+  .post('/login', login)
 
 module.exports = router

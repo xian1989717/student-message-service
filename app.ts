@@ -2,7 +2,7 @@ const Koa = require('koa')
 const path = require('path')
 const cors = require('koa2-cors')
 const bodyParser = require('koa-bodyparser')
-// const compress = require('koa-compress')
+const compress = require('koa-compress')
 const session = require('koa-session')
 const views = require('koa-views')
 
@@ -28,9 +28,9 @@ app.use(session(CONFIG, app))
 // 添加模板引擎
 app.use(views(path.join(__dirname, './public/view'), { extension: 'ejs' }))
 // gizp压缩
-// app.use(compress({ threshold: 1024 }))
+app.use(compress({ threshold: 1024 }))
 // 跨域
-// app.use(cors())
+app.use(cors())
 // 解析body
 app.use(bodyParser())
 // 路由

@@ -16,7 +16,7 @@ async function registerHtml (ctx: any) {
 }
 
 async function register (ctx: any) {
-  const data = Object.assign(
+  const res = await user.create(Object.assign(
     ctx.request.body,
     {
       isRemoved: false,
@@ -24,13 +24,12 @@ async function register (ctx: any) {
       createTime: new Date(),
       updateTime: new Date()
     }
-  )
-  console.log(data)
-  const res = await user.create(data)
+  ))
   if (res) {
     ctx.body = true
   }
 }
+
 async function checkAccount (ctx: any) {
   const { userName } = ctx.query
   const res = await user.findAll({
@@ -47,9 +46,30 @@ async function checkAccount (ctx: any) {
   ctx.body = '通过'
 }
 
+async function login (ctx: any) {
+  if (!ctx.session.userinfo) {
+    const { account, password } = ctx.request.body
+    const res = await user.findOne({
+      where: {
+        account,
+        password,
+        isRemoved: false
+      }
+    })
+    if (res) {
+      ctx.session.userinfo = ctx.request.body
+    } else {
+      ctx.response.type = 'html'
+      ctx.response.body = '<script>alert("账号或者密码错误，请重试！");window.location.href="/login"</script>'
+    }
+  }
+  ctx.redirect(httpUrl)
+}
+
 module.exports = {
   randerHtml,
   registerHtml,
   register,
-  checkAccount
+  checkAccount,
+  login
 }
