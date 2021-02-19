@@ -70,3 +70,19 @@ create table Task(
   update_time         datetime                not null                                      comment '更新时间',
   is_removed          tinyint(1)              not null                    default '0'       comment '删除标记'
 ) comment = '作业表';
+
+create table Score(
+  id                  int                     not null  AUTO_INCREMENT  primary key         comment '主键Id',
+  student_id          int                     not null                                      comment '学生关联Id',
+  subject_id          int                     not null                                      comment '学科Id',
+  grade_id            int                     not null                                      comment '年级Id',
+  score               decimal(3,1)            not null                                      comment '成绩',
+  create_time         datetime                not null                                      comment '创建时间',
+  update_time         datetime                not null                                      comment '更新时间',
+  is_removed          tinyint(1)              not null                    default '0'       comment '删除标记'
+) comment = '成绩表';
+
+create table message(
+  id                  int                     not null  AUTO_INCREMENT  primary key         comment '主键Id'
+) comment = '学校信息表';
+
