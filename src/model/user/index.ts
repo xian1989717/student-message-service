@@ -18,6 +18,16 @@ const user = ormDb.define(
       type: DataTypes.TEXT,
       allowNull: false
     },
+    gradeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'grade_id'
+    },
+    classId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'class_id'
+    },
     isClassTeacher: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

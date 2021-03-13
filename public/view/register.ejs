@@ -50,13 +50,13 @@
         <li>
           <label class="mark">年级：</label>
           <div>
-            <input type="text" value="" name="qrpass" id="qrpass">
+            <select id="grade" name="gradeId"></select>
           </div>
         </li>
         <li>
           <label class="mark">班级：</label>
           <div>
-            <input type="text" value="" name="qrpass" id="qrpass">
+            <select id="class" name="classId"></select>
           </div>
         </li>
       </ul>
@@ -67,13 +67,35 @@
 
 <script>
   window.onload = function () {
+    let gradeList = null
+    let classList = null
     $.ajax({
       type: 'get',
       url: 'register/message'
     }).then(res => {
-      console.log(res)
+      gradeList = res.data.grade
+      gradeList.forEach(item => {
+        $('#grade').append("<option value='" + item.id + "'>" + item.name + "</option>")
+      })
+      classList = res.data.class
+      classList.forEach(item => {
+        if (res.data.grade[0].id === item.gradeId) {
+          $('#class').append("<option value='" + item.id + "'>" + item.name + "</option>")
+        }
+      })
+    })
+
+    $('#grade').change(function () {
+      const activeGradeId = $(this).children('option:selected').val()
+      $('#class').empty()
+      classList.forEach(item => {
+        if (activeGradeId == item.gradeId) {
+          $('#class').append("<option value='" + item.id + "'>" + item.name + "</option>")
+        }
+      })
     })
   }
+
   const zhuce = document.getElementById('zhuce')
   zhuce.addEventListener('click', function () {
     var text_form = document.getElementById('text_form')
