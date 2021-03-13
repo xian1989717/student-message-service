@@ -5,45 +5,95 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="jquery.min.js"></script>
   <style>
-    .form_div {
-      line-height: 35px;
-      height: 35px;
+    li {
+      clear: both;
+      list-style: none;
+    }
+
+    .mark {
+      display: block;
+      float: left;
+      overflow: hidden;
+      width: 80px;
+      height: 29px;
+      padding-right: 10px;
+      text-align: justify;
+      text-align-last: justify;
     }
   </style>
 </head>
 
 <body>
-  <form action="/register" method="post" id="text_form">
-    <div class="yuanGongH ipt">员工号：<input type="text" id="ygh" value="" name="account"></div>
-    <div class="szmm ipt">密码：<input type="text" value="" name="password" id="pass"></div>
-    <div class="qrmm ipt">确认密码：</i><input type="text" value="" name="qrpass" id="qrpass"></div>
-  </form>
-  <div id="zhuce" class="btn_zhuce">注册</div>
+  <div style="width: 327px;height: 100px;margin: 0 auto;">
+    <form action="/register" method="post" id="text_form">
+      <ul>
+        <li>
+          <label class="mark">员工号：</label>
+          <div>
+            <input type="text" id="ygh" value="" name="account">
+          </div>
+        </li>
+        <li>
+          <label class="mark">密码：</label>
+          <div>
+            <input type="text" value="" name="password" id="pass">
+          </div>
+        </li>
+        <li>
+          <label class="mark">确认密码：</label>
+          <div>
+            <input type="text" value="" name="qrpass" id="qrpass">
+          </div>
+        </li>
+        <li>
+          <label class="mark">年级：</label>
+          <div>
+            <input type="text" value="" name="qrpass" id="qrpass">
+          </div>
+        </li>
+        <li>
+          <label class="mark">班级：</label>
+          <div>
+            <input type="text" value="" name="qrpass" id="qrpass">
+          </div>
+        </li>
+      </ul>
+    </form>
+    <button id="zhuce" style="margin-left:145px;">注册</button>
+  </div>
 </body>
 
 <script>
+  window.onload = function () {
+    $.ajax({
+      type: 'get',
+      url: 'register/message'
+    }).then(res => {
+      console.log(res)
+    })
+  }
   const zhuce = document.getElementById('zhuce')
-  console.dir(zhuce)
   zhuce.addEventListener('click', function () {
-    var text_form = document.getElementById('text_form');
-    var ygh = document.getElementById("ygh").value;
-    var pass = document.getElementById("pass").value;
-    var qrpass = document.getElementById("qrpass").value;
+    var text_form = document.getElementById('text_form')
+    var ygh = document.getElementById("ygh").value
+    var pass = document.getElementById("pass").value
+    var qrpass = document.getElementById("qrpass").value
     if (ygh == "") {
-      alert("员工号不能为空");
-      return false;
+      alert("员工号不能为空")
+      return false
     }
     if (pass == "") {
-      alert("密码不能为空");
-      return false;
+      alert("密码不能为空")
+      return false
     }
     if (qrpass !== pass) {
-      alert("密码不同");
-      return false;
+      alert("密码不同")
+      return false
     } else {
-      text_form.submit();
-      return true;
+      text_form.submit()
+      return true
     }
   })
 </script>

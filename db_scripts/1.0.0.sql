@@ -2,11 +2,13 @@ create table User(
   id                int           not null    AUTO_INCREMENT   primary key   		comment '主键Id',
   account           varchar(50)   not null    UNIQUE                            comment '用户名',
   password          varchar(15)   not null                                      comment '密码',
-  is_class_teacher  tinyint(1)    not null    default '0'                       comment '是否班主任',       
+  is_class_teacher  tinyint(1)    not null    default '0'                       comment '是否班主任',
+  grade_id          int           not null                                      comment '年级引用Id',
+  class_id          int           not null                                      comment '班级引用Id',
   remark            text          null                                          comment '备注',
   create_time       datetime      not null                                      comment '创建时间',
   update_time       datetime      not null                                      comment '更新时间',
-  is_removed        tinyint(1)    not null    default '0'                       comment '删除标记'                 
+  is_removed        tinyint(1)    not null    default '0'                       comment '删除标记'           
 ) comment = '用户表';
 
 create table Grade(

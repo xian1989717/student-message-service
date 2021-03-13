@@ -5,6 +5,7 @@ const bodyParser = require('koa-bodyparser')
 const compress = require('koa-compress')
 const session = require('koa-session')
 const views = require('koa-views')
+const KoaStatic = require('koa-static')
 
 const app = new Koa()
 
@@ -25,6 +26,7 @@ const CONFIG = {
   renew: false,  //(boolean) renew session when session is nearly expired,
 }
 app.use(session(CONFIG, app))
+app.use(KoaStatic(path.join(__dirname + '/public/common')))
 // 添加模板引擎
 app.use(views(path.join(__dirname, './public/view'), { extension: 'ejs' }))
 // gizp压缩

@@ -8,7 +8,8 @@ const {
   registerHtml,
   register,
   checkAccount,
-  login
+  login,
+  getMessage
 } = require('../../service')
 
 router
@@ -17,5 +18,6 @@ router
   .get('/register/check', checkAccount)
   .post('/register', register)
   .post('/login', login)
+  .get('/register/message', getMessage)
 
 module.exports = router

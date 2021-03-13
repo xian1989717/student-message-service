@@ -1,6 +1,6 @@
 export { }
 const { httpUrl } = require('../../../const')
-const { user } = require('../../model/index')
+const { user, myGrade, myClass } = require('../../model/index')
 
 async function randerHtml (ctx: any) {
   const { userinfo } = ctx.session
@@ -66,10 +66,37 @@ async function login (ctx: any) {
   ctx.redirect(httpUrl)
 }
 
+async function getMessage (ctx: any) {
+  const { userName } = ctx.query
+
+  const [data1, data2] = await Promise.all([
+    myGrade.findAll({
+      attributes: ['id', 'name'],
+      where: {
+        isRemoved: false
+      }
+    }),
+    myClass.findAll({
+      attributes: ['id', 'gradeId', 'name'],
+      where: {
+        isRemoved: false
+      }
+    })
+  ])
+  ctx.body = {
+    state: true,
+    data: {
+      grade: data1,
+      class: data2
+    }
+  }
+}
+
 module.exports = {
   randerHtml,
   registerHtml,
   register,
   checkAccount,
-  login
+  login,
+  getMessage
 }
